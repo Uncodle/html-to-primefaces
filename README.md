@@ -1,20 +1,15 @@
-# html-to-primefaces README
+# HtmlToPrimefaceConverter plugin for [Visual Studio Code](https://code.visualstudio.com)
 
 This is the README for your extension "html-to-primefaces". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+> This is a simple extension for a challenge.
+> i'll update this repository early with releases and new features.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
 ## Extension Settings
 
@@ -24,8 +19,7 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `myExtension.htmlToPrimefacesConverter`: convert elements html in primefaces componentes
 
 ## Known Issues
 
@@ -37,15 +31,17 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
+Initial version of the extension. 
+
+Feature: choose the element you want to replace in the document.
 
 ### 1.0.1
 
-Fixed issue #.
+Soon
 
 ### 1.1.0
 
-Added features X, Y, and Z.
+Soon
 
 -----------------------------------------------------------------------------------------------------------
 
