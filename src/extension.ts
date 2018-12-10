@@ -13,9 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
             files.forEach( (file, i) => {
                 vscode.workspace.openTextDocument( file.path )
                     .then( ( currentFile: any ) => {
-
-                        console.log( elemName )
-
                         fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
                             if (err) return console.log(err)
 

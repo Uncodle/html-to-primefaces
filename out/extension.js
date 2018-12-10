@@ -10,7 +10,6 @@ function activate(context) {
             files.forEach((file, i) => {
                 vscode.workspace.openTextDocument(file.path)
                     .then((currentFile) => {
-                    console.log(elemName);
                     fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
                         if (err)
                             return console.log(err);
