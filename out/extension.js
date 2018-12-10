@@ -1,45 +1,67 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
+const fs = require("fs");
 function activate(context) {
     const editor = vscode.window.activeTextEditor;
-    let findOccurences = () => {
-        let elementTypes = ['input', 'select', 'textarea'];
-        let activeDocumentUri = editor.document.uri;
-        let activePath = vscode.workspace.getWorkspaceFolder(activeDocumentUri);
-        // let commands = vscode.commands.getCommands(false)
-        //     .then( ( commands: Array<String> ) => {
-        //         console.log(commands);
-        //         commands.filter( ( command ) => {
-        //             console.log( command.search )
-        //         })    
-        //     })
+    const initFindAndReplace = (elemName, elemRegex, elemReplace) => {
         vscode.workspace.findFiles('**/*.asp')
             .then((files) => {
-            let regExpression = new RegExp('(<input)', 'g');
-            let currentText = '<input';
-            let newText = '<p: input';
-            let match = undefined;
             files.forEach((file, i) => {
                 vscode.workspace.openTextDocument(file.path)
                     .then((currentFile) => {
-                    let currentText = currentFile.getText();
-                    let wEdit = new vscode.WorkspaceEdit();
-                    wEdit.get(currentFile);
-                    vscode.workspace.applyEdit(wEdit);
-                    console.log('-------');
+                    console.log(elemName);
+                    fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
+                        if (err)
+                            return console.log(err);
+                        let result = data.replace(elemRegex, elemReplace);
+                        if (elemName === 'Textarea') {
+                            result = data.replace('</textarea>', '');
+                        }
+                        fs.writeFile(currentFile.uri.fsPath, result, 'utf8', function (err) {
+                            if (err)
+                                return console.log(err);
+                        });
+                    });
                 })
                     .then(undefined, err => {
                     console.error('Erro:', err);
                     return;
                 });
             });
+        })
+            .then(() => {
+            vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
+        })
+            .then(undefined, err => {
         });
-        vscode.window.showInformationMessage('findOccurences has initialized!');
+    };
+    const initElementSelector = () => {
+        let elemRegex;
+        let elemReplace;
+        let elementsList = ['Input', 'Textarea', 'Select (BETA)'];
+        vscode.window.showQuickPick(elementsList)
+            .then((response) => {
+            if (response == elementsList[0]) {
+                elemRegex = /<input(.*?)type=\"text\"/g;
+                elemReplace = '<p:inputText';
+            }
+            else if (response == elementsList[1]) {
+                elemRegex = /<textarea/g;
+                elemReplace = '<p:inputTextArea';
+            }
+            else if (response == elementsList[2]) {
+                vscode.window.showInformationMessage('Este comando está em beta.');
+                return;
+            }
+            initFindAndReplace(response, elemRegex, elemReplace);
+        });
+    };
+    const init = () => {
+        initElementSelector();
     };
     let htmlToPrimefacesConverter = vscode.commands.registerCommand('extension.htmlToPrimefacesConverter', () => {
-        vscode.window.showInformationMessage('Hello World!');
-        findOccurences();
+        init();
     });
     context.subscriptions.push(htmlToPrimefacesConverter);
 }

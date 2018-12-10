@@ -1,63 +1,79 @@
 'use strict'
 
 import * as vscode from 'vscode'
+import * as fs from 'fs'
 
 export function activate(context: vscode.ExtensionContext) {
 
     const editor = vscode.window.activeTextEditor
-    
-    let findOccurences: any = () => {
 
-        let elementTypes: Array<string> = ['input', 'select', 'textarea']
-        
-        let activeDocumentUri = editor.document.uri;
-        let activePath = vscode.workspace.getWorkspaceFolder( activeDocumentUri )
-
-        // let commands = vscode.commands.getCommands(false)
-        //     .then( ( commands: Array<String> ) => {
-        //         console.log(commands);
-        //         commands.filter( ( command ) => {
-        //             console.log( command.search )
-        //         })    
-        //     })
-
+    const initFindAndReplace = ( elemName: string, elemRegex: RegExp, elemReplace: string ) => {
         vscode.workspace.findFiles( '**/*.asp')
-            .then( ( files: Array<Object> ) => {
+        .then( ( files: Array<Object> ) => {
+            files.forEach( (file, i) => {
+                vscode.workspace.openTextDocument( file.path )
+                    .then( ( currentFile: any ) => {
 
-                let regExpression = new RegExp('(<input)','g')
-                let currentText:string = '<input'
-                let newText:string = '<p: input' 
-                let match: any = undefined
+                        console.log( elemName )
 
-                files.forEach( (file, i) => {
-                    vscode.workspace.openTextDocument( file.path )
-                        .then( ( currentFile: any ) => {
-                            
-                            let currentText: string = currentFile.getText()
-                            let wEdit = new vscode.WorkspaceEdit()
+                        fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
+                            if (err) return console.log(err)
 
-                            wEdit.get( currentFile )
-                            vscode.workspace.applyEdit(wEdit)
-                        
-                            console.log('-------')
+                            let result = data.replace( elemRegex, elemReplace )
 
+                            if(elemName === 'Textarea' ){
+                                result = data.replace( '</textarea>', '' )
+                            }
+                          
+                            fs.writeFile(currentFile.uri.fsPath, result, 'utf8', function (err) {
+                               if (err) return console.log(err)
+                            });
+                          });
 
-                        })     
-                        .then(undefined, err => {
-                            console.error('Erro:', err)
-                            return
-                         })    
-                })
+                    })     
+                    .then(undefined, err => {
+                        console.error('Erro:', err)
+                        return
+                     })    
             })
+        })
+        .then( () => {
+            vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
+        })
+        .then( undefined, err => {
+            
+        })
+    }
 
-        vscode.window.showInformationMessage('findOccurences has initialized!')
+    const initElementSelector = () => {
+        let elemRegex: RegExp
+        let elemReplace: string
+        let elementsList = ['Input','Textarea', 'Select (BETA)']
+
+        vscode.window.showQuickPick( elementsList )
+            .then( ( response: any ) => {
+
+                if( response == elementsList[0] ){
+                    elemRegex = /<input(.*?)type=\"text\"/g
+                    elemReplace = '<p:inputText'
+                }else if ( response == elementsList[1] ){
+                    elemRegex = /<textarea/g
+                    elemReplace =  '<p:inputTextArea'
+                }else if ( response == elementsList[2] ){
+                    vscode.window.showInformationMessage('Este comando está em beta.');
+                    return
+                }
+
+                initFindAndReplace(response, elemRegex, elemReplace)
+            })
+    }
+
+    const init = () => {
+        initElementSelector()
     }
 
     let htmlToPrimefacesConverter = vscode.commands.registerCommand('extension.htmlToPrimefacesConverter', () => {        
-        
-        vscode.window.showInformationMessage('Hello World!')
-
-        findOccurences();
+        init();
     });
 
     context.subscriptions.push( htmlToPrimefacesConverter )
