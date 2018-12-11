@@ -16,10 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
                         fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
                             if (err) return console.log(err)
 
-                            let result = data.replace( elemRegex, elemReplace )
+                            let result;
 
                             if(elemName === 'Textarea' ){
-                                result = data.replace( '</textarea>', '' )
+                                result = data.replace( elemRegex, elemReplace )
+                                             .replace(/<\/textarea>/g, '')
+                            }else {
+                                result = data.replace( elemRegex, elemReplace )
                             }
                           
                             fs.writeFile(currentFile.uri.fsPath, result, 'utf8', function (err) {
@@ -35,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
             })
         })
         .then( () => {
-            vscode.window.showInformationMessage(`html2PrimefacesConverter: ${elemName} substítuidos!`);
+            vscode.window.showInformationMessage(`html2PrimefacesConverter: Elementos do tipo ${elemName} estão sendo substítuidos! Cheque seus arquivos.`);
         })
         .then( undefined, err => {
             console.error('Error:', err)

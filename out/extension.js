@@ -13,9 +13,11 @@ function activate(context) {
                     fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
                         if (err)
                             return console.log(err);
-                        let result = data.replace(elemRegex, elemReplace);
+                        
+                            let result = data.replace(elemRegex, elemReplace);
+
                         if (elemName === 'Textarea') {
-                            result = data.replace('</textarea>', '');
+                            result += data.replace(/<\/textarea>/g, '');
                         }
                         fs.writeFile(currentFile.uri.fsPath, result, 'utf8', function (err) {
                             if (err)

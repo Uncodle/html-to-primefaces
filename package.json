@@ -1,12 +1,12 @@
 {
-    "name": "html2primeface",
-    "displayName": "html2PrimeFace",
+    "name": "html2primefaces",
+    "displayName": "html2Primefaces",
     "description": "Convert html elements into primeface components. This is a simple extension with the purpose to resolve a problem inside a team.",
-    "version": "1.0.2",
+    "version": "1.0.0",
     "publisher": "uncodle",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Uncodle/vscode-html2primeface"
+        "url": "https://github.com/Uncodle/vscode-html2primefaces"
     },
     "icon": "assets/images/logo.png",
     "engines": {
