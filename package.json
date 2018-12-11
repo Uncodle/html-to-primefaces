@@ -1,8 +1,8 @@
 {
-    "name": "html2primefaces",
-    "displayName": "html2PrimeFaces",
+    "name": "html2primeface",
+    "displayName": "html2PrimeFace",
     "description": "Convert html elements into primeface components. This is a simple extension with the purpose to resolve a problem inside a team.",
-    "version": "1.2.0",
+    "version": "1.0.0",
     "publisher": "uncodle",
     "repository": {
         "type": "git",
