@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
     const editor = vscode.window.activeTextEditor
 
     const initFindAndReplace = ( elemName: string, elemRegex: RegExp, elemReplace: string ) => {
-        vscode.workspace.findFiles( '**/*.asp')
+        vscode.workspace.findFiles( './**/*.asp')
         .then( ( files: Array<Object> ) => {
             files.forEach( (file, i) => {
                 vscode.workspace.openTextDocument( file.path )
