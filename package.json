@@ -2,7 +2,12 @@
     "name": "html-to-primefaces",
     "displayName": "htmlToPrimeFaces",
     "description": "Convert html elemnts to primefaces components. A challenge by: Santander Team",
-    "version": "0.0.1",
+    "version": "1.0.0",
+    "publisher": "uncodle",
+    "repository": { 
+        "type": "git",
+        "url": "https://github.com/Uncodle/vscode-html-to-primefaces"
+    },
     "engines": {
         "vscode": "^1.29.0"
     },

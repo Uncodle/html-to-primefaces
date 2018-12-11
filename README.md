@@ -1,6 +1,6 @@
 # HtmlToPrimefaceConverter plugin for [Visual Studio Code](https://code.visualstudio.com)
 
-I create this visual code extension for a challenge to resolves the problem of replacing file for file 
+I create this visual code extension for a challenge to resolves the problem of replacing file for file
 
 ## Features
 
@@ -8,7 +8,6 @@ I create this visual code extension for a challenge to resolves the problem of r
 > I'll update this repository early with releases and new features.
 
 ## Requirements
-
 
 ## Extension Settings
 
@@ -18,13 +17,12 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.htmlToPrimefacesConverter`: convert elements html in primefaces componentes
+* `extension.htmlToPrimefacesConverter`: convert elements html in primefaces componentes
 
 ### 1.0.0
 
 Initial version of the extension to be released. 
 Feature: choose the element you want to replace in the document.
-
 
 -----------------------------------------------------------------------------------------------------------
 
