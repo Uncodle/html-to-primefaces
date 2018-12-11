@@ -28,14 +28,14 @@ export function activate(context: vscode.ExtensionContext) {
                           });
 
                     })     
-                    .then(undefined, err: Error => {
+                    .then(undefined, err => {
                         console.error('Error:', err)
                         return
                      })    
             })
         })
         .then( () => {
-            vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
+            vscode.window.showInformationMessage(`html2PrimefacesConverter: ${elemName} substítuidos!`);
         })
         .then( undefined, err => {
             console.error('Error:', err)
@@ -69,11 +69,11 @@ export function activate(context: vscode.ExtensionContext) {
         initElementSelector()
     }
 
-    let htmlToPrimefacesConverter = vscode.commands.registerCommand('extension.htmlToPrimefacesConverter', () => {        
+    let html2PrimefacesConverter = vscode.commands.registerCommand('extension.html2PrimefacesConverter', () => {        
         init();
     });
 
-    context.subscriptions.push( htmlToPrimefacesConverter )
+    context.subscriptions.push( html2PrimefacesConverter )
 }
 
 export function deactivate() {}

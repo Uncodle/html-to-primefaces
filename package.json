@@ -1,12 +1,12 @@
 {
-    "name": "html-to-primefaces",
-    "displayName": "htmlToPrimeFaces",
-    "description": "Convert html elemnts to primefaces components. A challenge by: Santander Team",
+    "name": "html2primefaces",
+    "displayName": "html2PrimeFaces",
+    "description": "Convert html elements into primeface components. This is a simple extension with the purpose to resolve a problem inside a team.",
     "version": "1.1.0",
     "publisher": "uncodle",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Uncodle/vscode-html-to-primefaces"
+        "url": "https://github.com/Uncodle/vscode-html2primeface"
     },
     "icon": "assets/images/logo.png",
     "engines": {
@@ -16,14 +16,14 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.htmlToPrimefacesConverter"
+        "onCommand:extension.html2PrimefacesConverter"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.htmlToPrimefacesConverter",
-                "title": "htmlToPrimefacesConverter"
+                "command": "extension.html2PrimefacesConverter",
+                "title": "html2PrimefacesConverter"
             }
         ]
     },

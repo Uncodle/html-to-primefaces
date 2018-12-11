@@ -23,14 +23,14 @@ function activate(context) {
                         });
                     });
                 })
-                    .then(undefined, err, Error => {
+                    .then(undefined, err => {
                     console.error('Error:', err);
                     return;
                 });
             });
         })
             .then(() => {
-            vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
+            vscode.window.showInformationMessage(`html2PrimefacesConverter: ${elemName} substítuidos!`);
         })
             .then(undefined, err => {
             console.error('Error:', err);
@@ -60,10 +60,10 @@ function activate(context) {
     const init = () => {
         initElementSelector();
     };
-    let htmlToPrimefacesConverter = vscode.commands.registerCommand('extension.htmlToPrimefacesConverter', () => {
+    let html2PrimefacesConverter = vscode.commands.registerCommand('extension.html2PrimefacesConverter', () => {
         init();
     });
-    context.subscriptions.push(htmlToPrimefacesConverter);
+    context.subscriptions.push(html2PrimefacesConverter);
 }
 exports.activate = activate;
 function deactivate() { }
