@@ -23,8 +23,8 @@ function activate(context) {
                         });
                     });
                 })
-                    .then(undefined, err => {
-                    console.error('Erro:', err);
+                    .then(undefined, err, Error => {
+                    console.error('Error:', err);
                     return;
                 });
             });
@@ -33,6 +33,7 @@ function activate(context) {
             vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
         })
             .then(undefined, err => {
+            console.error('Error:', err);
         });
     };
     const initElementSelector = () => {

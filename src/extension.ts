@@ -28,8 +28,8 @@ export function activate(context: vscode.ExtensionContext) {
                           });
 
                     })     
-                    .then(undefined, err => {
-                        console.error('Erro:', err)
+                    .then(undefined, err: Error => {
+                        console.error('Error:', err)
                         return
                      })    
             })
@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(`htmlToPrimefacesConverter: ${elemName} substítuidos!`);
         })
         .then( undefined, err => {
-            
+            console.error('Error:', err)
         })
     }
 
