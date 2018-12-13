@@ -48,7 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
     const initElementSelector = () => {
         let elemRegex: RegExp
         let elemReplace: string
-        let elementsList = ['Input','Textarea', 'Select (BETA)']
+        let elementsList = ['Input','Textarea', 'Select (EM BREVE)']
 
         vscode.window.showQuickPick( elementsList )
             .then( ( response: any ) => {
@@ -60,7 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
                     elemRegex = /<textarea/g
                     elemReplace =  '<p:inputTextArea'
                 }else if ( response == elementsList[2] ){
-                    vscode.window.showInformationMessage('Este comando está em beta.');
+                    vscode.window.showInformationMessage('Este comando está em beta e será lançado em breve.');
                     return
                 }
 
