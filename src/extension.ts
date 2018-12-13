@@ -54,7 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
             .then( ( response: any ) => {
 
                 if( response == elementsList[0] ){
-                    elemRegex = /<input(.*?)type=\"text\"/g
+                    elemRegex = /<input(.*?)([^\n]*\n+)?([\t])?type=\"text\"/gmi
                     elemReplace = '<p:inputText'
                 }else if ( response == elementsList[1] ){
                     elemRegex = /<textarea/g

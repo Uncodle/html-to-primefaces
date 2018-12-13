@@ -5,7 +5,7 @@ const fs = require("fs");
 function activate(context) {
     const editor = vscode.window.activeTextEditor;
     const initFindAndReplace = (elemName, elemRegex, elemReplace) => {
-        vscode.workspace.findFiles('**/*.asp')
+        vscode.workspace.findFiles('./**/*.asp')
             .then((files) => {
             files.forEach((file, i) => {
                 vscode.workspace.openTextDocument(file.path)
@@ -13,11 +13,13 @@ function activate(context) {
                     fs.readFile(currentFile.uri.fsPath, 'utf8', function (err, data) {
                         if (err)
                             return console.log(err);
-                        
-                            let result = data.replace(elemRegex, elemReplace);
-
+                        let result;
                         if (elemName === 'Textarea') {
-                            result += data.replace(/<\/textarea>/g, '');
+                            result = data.replace(elemRegex, elemReplace)
+                                .replace(/<\/textarea>/g, '');
+                        }
+                        else {
+                            result = data.replace(elemRegex, elemReplace);
                         }
                         fs.writeFile(currentFile.uri.fsPath, result, 'utf8', function (err) {
                             if (err)
@@ -32,7 +34,7 @@ function activate(context) {
             });
         })
             .then(() => {
-            vscode.window.showInformationMessage(`html2PrimefacesConverter: ${elemName} substítuidos!`);
+            vscode.window.showInformationMessage(`html2PrimefacesConverter: Elementos do tipo ${elemName} estão sendo substítuidos! Cheque seus arquivos.`);
         })
             .then(undefined, err => {
             console.error('Error:', err);
@@ -45,7 +47,7 @@ function activate(context) {
         vscode.window.showQuickPick(elementsList)
             .then((response) => {
             if (response == elementsList[0]) {
-                elemRegex = /<input(.*?)type=\"text\"/g;
+                elemRegex = /<input(.*?)([^\n]*\n+)?([\t])+?type=\"text\"/g;
                 elemReplace = '<p:inputText';
             }
             else if (response == elementsList[1]) {
